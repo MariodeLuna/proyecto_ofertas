@@ -5,14 +5,18 @@ default: &default
 
 development:
   <<: *default
-  database: deremate_development
+  database: deremate_development_2
+  username: desafio
+  password: password
 
 test:
   <<: *default
-  database: deremate_test
+  database: deremate_test_2
+  username: desafio
+  password: password
 
 production:
   <<: *default
-  database: deremate_production
-  username: deremate
+  database: deremate_production_2
+  username: deremate2
   password: <%= ENV['DEREMATE_DATABASE_PASSWORD'] %>

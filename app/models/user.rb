@@ -6,4 +6,8 @@ class User < ActiveRecord::Base
   enum role: [ :guest, :user, :seller ]
   has_many :products
   has_many :bids, through: :products
+
+
+  geocoded_by :address
+  before_save :geocode
 end

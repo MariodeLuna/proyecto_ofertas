@@ -16,4 +16,9 @@ class UsersController < ApplicationController
     current_user.credits += params[:amount]
     render json: params
   end
+
+
+  def user_params
+    params.require(:user).permit(:email, :password, :password_confirmation, :address)
+  end
 end
