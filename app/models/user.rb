@@ -8,8 +8,10 @@ class User < ActiveRecord::Base
   has_many :bids, through: :products
 
 
-  geocoded_by :address
-  #reverse_geocoded_by :latitude, :longitude
+  #geocoded_by :address
+  reverse_geocoded_by :latitude, :longitude
 
-  before_save :geocode 
+
+
+  before_save :reverse_geocode
 end

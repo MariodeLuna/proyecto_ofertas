@@ -23,15 +23,32 @@
 
   <div id="address" class="field">
     <%= f.label :address %><br />
-    <%= f.text_field :address, autocomplete: "off"  %>
+    <%= f.text_field :address, id: "address_c"  %>
   </div>
 
   <div class="actions">
-    <%= f.submit "Sign up" %>
+    <%= f.submit "Sign In" %>
   </div>
 <% end %>
 
 <button id="address_b">I see you</button>
+
+
+<script type="text/javascript">
+var x = document.getElementById("address_c");
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        x.value = "Geolocation is not supported by this browser.";
+    }
+}
+function showPosition(position) {
+    x.value = "latitude: " + position.coords.latitude + " longitude: " + position.coords.longitude;
+}
+
+getLocation();
+</script>
 
 <script type="text/javascript" charset="utf-8">
   $("#address_b").on ("click", function(event){
@@ -40,7 +57,7 @@
       url: '<%= users_find_path %>',
       type: 'GET',
       dataType: 'script',
-      data: {l: location.latitude, lng: location.longitude},
+      data: {latitude: location.latitude, longitude: location.longitude},
     })
     .done(function() {
       console.log("success");
