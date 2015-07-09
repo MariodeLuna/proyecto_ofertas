@@ -21,4 +21,12 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:email, :password, :password_confirmation, :address)
   end
+
+
+  def find
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
 end

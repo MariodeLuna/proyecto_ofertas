@@ -21,7 +21,7 @@
     <%= f.password_field :password_confirmation, autocomplete: "off" %>
   </div>
 
-  <div class="field">
+  <div id="address" class="field">
     <%= f.label :address %><br />
     <%= f.text_field :address, autocomplete: "off"  %>
   </div>
@@ -31,4 +31,28 @@
   </div>
 <% end %>
 
+<button id="address_b">I see you</button>
+
+<script type="text/javascript" charset="utf-8">
+  $("#address_b").on ("click", function(event){
+    
+    $.ajax({
+      url: '<%= users_find_path %>',
+      type: 'GET',
+      dataType: 'script',
+      data: {l: location.latitude, lng: location.longitude},
+    })
+    .done(function() {
+      console.log("success");
+    })
+    .fail(function() {
+      console.log("error");
+    })
+    .always(function() {
+      console.log("complete");
+    });
+    
+
+  });
+</script>
 <%= render "devise/shared/links" %>

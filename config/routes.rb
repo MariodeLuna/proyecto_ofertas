@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get 'users/dashboard'
   get 'users/buy_credits'
   post 'users/process_credits'
+  get 'users/find'
   
   resources :products, only: [:index, :create, :new] do
     resources :bids, only: [:create]
