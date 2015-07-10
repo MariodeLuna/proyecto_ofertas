@@ -1,3 +1,5 @@
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
+
 <h2>Sign up</h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
@@ -24,10 +26,12 @@
   <div id="address" class="field">
     <%= f.label :address %><br />
     <%= f.text_field :address, id: "address_c"  %>
+    <%= f.hidden_field :latitude, id: "address_lat"  %>
+    <%= f.hidden_field :longitude, id: "address_lng"  %>
   </div>
 
   <div class="actions">
-    <%= f.submit "Sign In" %>
+    <%= f.submit "Sign In", id: "submit" %>
   </div>
 <% end %>
 
@@ -44,10 +48,29 @@ function getLocation() {
     }
 }
 function showPosition(position) {
-    x.value = "latitude: " + position.coords.latitude + " longitude: " + position.coords.longitude;
+    x.value = position.coords.latitude + " , " + position.coords.longitude;
 }
 
 getLocation();
+</script>
+
+
+
+<script>
+var a = document.getElementById("address_c");
+var b = document.getElementById("address_lat");
+var c = document.getElementById("address_lng");
+
+$("#submit").on ("click", function(event){ 
+  var array = a.split(',');
+    if (typeof array !== 'undefined'){
+      var lat =  array[0];
+      var lng = array[1];
+      b.value = lat;
+      c.value = lng;
+    }
+  });
+
 </script>
 
 <script type="text/javascript" charset="utf-8">
@@ -57,7 +80,7 @@ getLocation();
       url: '<%= users_find_path %>',
       type: 'GET',
       dataType: 'script',
-      data: {latitude: location.latitude, longitude: location.longitude},
+      data: {},
     })
     .done(function() {
       console.log("success");
@@ -71,5 +94,10 @@ getLocation();
     
 
   });
+
+
+
+
+  
 </script>
 <%= render "devise/shared/links" %>
